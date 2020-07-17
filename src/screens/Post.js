@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { ScrollView, FlatList } from 'react-native-gesture-handler'
+import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { Header, SearchBar, Button } from 'react-native-elements'
 import CardItem from '../components/CardItem'
 import InputSearch from '../components/InputSearch'
@@ -36,7 +36,7 @@ const flatListItems = [
 
 
 
-const Post = () => {
+const Post = ({navigation}) => {
 
     const[text, setText] = useState('');
     const [brandsData, setbrandsData] = useState(flatListItems);
@@ -61,6 +61,10 @@ const Post = () => {
         }
     }
 
+    const goToDetail = (item) => {
+        navigation.navigate('DetailList', {item:item})
+    }
+
     return (
         <View style={styles.container}>
             <Header
@@ -73,17 +77,19 @@ const Post = () => {
             />
             <InputSearch onChange={onChangeText} ></InputSearch>
             <FlatList
-                roundAvatar
-                
                 data={brandsData}
                 ItemSeparatorComponent={FlatListItemSeparator}
                 badge={{ value: 3, textStyle: { color: 'orange' }, containerStyle: { marginTop: -20 } }}
                 renderItem={({ item }) => (
-                    <View >
-                        <Text style={styles.item}>
-                            {item.value}
-                        </Text>
-                    </View>
+                    <TouchableOpacity onPress={()=>{
+                        goToDetail(item)
+                    }}>
+                        <View>
+                            <Text style={styles.item}>
+                                {item.value}
+                            </Text>
+                        </View>    
+                    </TouchableOpacity>
                 )}
 
             />
