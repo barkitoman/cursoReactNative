@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { ScrollView, FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, FlatList, TouchableWithoutFeedback, TouchableOpacity } from 'react-native-gesture-handler'
 import { Header, SearchBar, Button } from 'react-native-elements'
 import CardItem from '../components/CardItem'
 import InputSearch from '../components/InputSearch'
+
 
 
 const flatListItems = [
@@ -46,6 +47,13 @@ const Post = ({navigation}) => {
             <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }}/>
         );
     };
+
+    
+    const goToDescription = ({item})=> {
+        console.log("Paso por aca CV");
+        console.log("item "+ item);
+        navigation.navigate('Description',{item:item})
+      }
     
     const  onChangeText = (text) => {    
         if(text != ''){
@@ -61,10 +69,6 @@ const Post = ({navigation}) => {
         }
     }
 
-    const goToDetail = (item) => {
-        navigation.navigate('DetailList', {item:item})
-    }
-
     return (
         <View style={styles.container}>
             <Header
@@ -77,18 +81,17 @@ const Post = ({navigation}) => {
             />
             <InputSearch onChange={onChangeText} ></InputSearch>
             <FlatList
+                roundAvatar
                 data={brandsData}
                 ItemSeparatorComponent={FlatListItemSeparator}
                 badge={{ value: 3, textStyle: { color: 'orange' }, containerStyle: { marginTop: -20 } }}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={()=>{
-                        goToDetail(item)
-                    }}>
-                        <View>
-                            <Text style={styles.item}>
-                                {item.value}
-                            </Text>
-                        </View>    
+                    <TouchableOpacity onPress={()=>goToDescription({item})}>
+                  <View >
+                        <Text style={styles.item}>
+                            {item.value}
+                        </Text>
+                    </View>
                     </TouchableOpacity>
                 )}
 

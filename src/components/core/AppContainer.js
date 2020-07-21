@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Login from '../../screens/Login/Login';
 import Register from '../../screens/Register';
 import Post from '../../screens/Post';
-import DetailList from '../../screens/DetailList';
+import Description from '../../screens/Description';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,7 @@ const AppContainer = () => {
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Register" component={Register}/>  
             <Stack.Screen name="Post" component={Post}/> 
-            <Stack.Screen name="DetailList" component={DetailList}/> 
+            <Stack.Screen name="Description" component={Description}/> 
             </Stack.Navigator>
         </NavigationContainer>
         )

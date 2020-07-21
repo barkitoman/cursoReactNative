@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, Button, Text } from 'react-native-elements'
 import { View, StyleSheet } from 'react-native'
 
-const FormLogin = ({onPressButton}) => {
+const FormLogin = ({ onPressButton , credentials}) => {
+
+    
+
     return (
+        
         <React.Fragment>
             <Input
                 leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-                leftIconContainerStyle= {{marginLeft:5}}
+                leftIconContainerStyle={{ marginLeft: 5 }}
                 placeholder={"Email"}
+                onChangeText={(text) => credentials.setEmail(text)}
+                value={credentials.email}
             />
             <Input
-                placeholder='password'
+                placeholder='Contraseña'
                 leftIcon={{ type: 'font-awesome', name: 'lock' }}
                 secureTextEntry={true}
-                leftIconContainerStyle= {{marginLeft:5}}
+                leftIconContainerStyle={{ marginLeft: 5 }}
+                onChangeText={(text) => credentials.setPassword(text)}
+                value={credentials.password}
             />
-            <Button title='Log In' onPress={onPressButton}/>
+            <Button title='Log In' onPress={onPressButton} />
 
             <Text style={styles.text}>Olvidaste la contraseña?</Text>
         </React.Fragment>
@@ -24,8 +32,8 @@ const FormLogin = ({onPressButton}) => {
 }
 
 const styles = StyleSheet.create({
-     inputStyle: {
-         width:'100%',
+    inputStyle: {
+        width: '100%',
         backgroundColor: 'white',
         borderRadius: 25,
     },

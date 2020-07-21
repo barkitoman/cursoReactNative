@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "443842715808",
+    "firebase_url": "https://demologin1-ffe22.firebaseio.com",
+    "project_id": "demologin1-ffe22",
+    "storage_bucket": "demologin1-ffe22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443842715808:android:01fac939d1b44cf687e9c5",
+        "android_client_info": {
+          "package_name": "com.demoLogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443842715808-ff7belk2p22opt9mn35fs1ho6ssdtuvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmVEYS2n0zTktYYcbtrGumS-bkfIw_bNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443842715808-ff7belk2p22opt9mn35fs1ho6ssdtuvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

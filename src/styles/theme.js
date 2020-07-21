@@ -1,4 +1,3 @@
-import { Input } from "react-native-elements";
 
 
 export const colors = {
