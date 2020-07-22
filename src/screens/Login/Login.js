@@ -30,14 +30,11 @@ const Login = ({ navigation }) => {
           });
       } else {
         setLoading(false)
-        navigation.navigate('Post')
       }
     });
   }, []);
 
   const onLoginPress = () => {
-    console.log(email)
-    console.log(password)
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -53,7 +50,7 @@ const Login = ({ navigation }) => {
               return;
             }
             const user = firestoreDocument.data()
-            navigation.navigate('Post')
+            // navigation.navigate('Post')
           })
           .catch(error => {
             alert(error)
