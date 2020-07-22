@@ -4,6 +4,7 @@ import { ScrollView, FlatList, TouchableWithoutFeedback, TouchableOpacity } from
 import { Header, SearchBar, Button } from 'react-native-elements'
 import CardItem from '../components/CardItem'
 import InputSearch from '../components/InputSearch'
+import { DrawerActions } from '@react-navigation/native'
 
 
 
@@ -69,6 +70,11 @@ const Post = ({navigation}) => {
         }
     }
 
+    const openMenu = () => {
+        console.log('wwww')
+        navigation.dispatch(DrawerActions.toggleDrawer())
+    }
+
     return (
         <View style={styles.container}>
             <Header
@@ -76,6 +82,8 @@ const Post = ({navigation}) => {
                     backgroundColor: 'green',
                     justifyContent: 'space-around',
                 }}
+                leftComponent = {{icon: 'menu', color: '#fff', onPress: ()=>{openMenu()}} }
+                
                 rightComponent={{ icon: 'refresh', color: '#fff' }}
                 centerComponent={{ text: 'Post', style: { color: '#fff' } }}
             />

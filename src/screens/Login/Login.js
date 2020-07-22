@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
             const userData = document.data()
             setLoading(false)
             console.log("persiste")
-            navigation.navigate('Post')
+            navigation.navigate('Home')
           })
           .catch((error) => {
             setLoading(false)
@@ -35,30 +35,31 @@ const Login = ({ navigation }) => {
   }, []);
 
   const onLoginPress = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        const uid = response.user.uid
-        const usersRef = firebase.firestore().collection('users')
-        usersRef
-          .doc(uid)
-          .get()
-          .then(firestoreDocument => {
-            if (!firestoreDocument.exists) {
-              alert("User does not exist anymore.")
-              return;
-            }
-            const user = firestoreDocument.data()
-            // navigation.navigate('Post')
-          })
-          .catch(error => {
-            alert(error)
-          });
-      })
-      .catch(error => {
-        alert(error)
-      })
+    navigation.navigate('Home')
+    // firebase
+    //   .auth()
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then((response) => {
+    //     const uid = response.user.uid
+    //     const usersRef = firebase.firestore().collection('users')
+    //     usersRef
+    //       .doc(uid)
+    //       .get()
+    //       .then(firestoreDocument => {
+    //         if (!firestoreDocument.exists) {
+    //           alert("User does not exist anymore.")
+    //           return;
+    //         }
+    //         const user = firestoreDocument.data()
+    //         navigation.navigate('Post')
+    //       })
+    //       .catch(error => {
+    //         alert(error, 'eerrr')
+    //       });
+    //   })
+    //   .catch(error => {
+    //     alert(error, 'eerrr111')
+    //   })
   }
 
   const goToRegister = () => {

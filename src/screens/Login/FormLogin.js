@@ -3,9 +3,6 @@ import { Input, Button, Text } from 'react-native-elements'
 import { View, StyleSheet } from 'react-native'
 
 const FormLogin = ({ onPressButton , credentials}) => {
-
-    
-
     return (
         
         <React.Fragment>
