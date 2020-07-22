@@ -5,7 +5,7 @@ import { Header, SearchBar, Button } from 'react-native-elements'
 import CardItem from '../components/CardItem'
 import InputSearch from '../components/InputSearch'
 import { DrawerActions } from '@react-navigation/native'
-
+import firebase from 'firebase'
 
 
 const flatListItems = [
@@ -73,6 +73,12 @@ const Post = ({navigation}) => {
     const openMenu = () => {
         console.log('wwww')
         navigation.dispatch(DrawerActions.toggleDrawer())
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            navigation.navigate('Login')
+          }).catch(function(error) {
+            // An error happened.
+          });
     }
 
     return (

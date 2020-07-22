@@ -4,7 +4,8 @@ import Logo from '../../components/Logo';
 import FormLogin from './FormLogin';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { colors } from '../../styles/theme';
-import { firebase } from '../../firebase/config'
+import firebase from 'firebase'
+import 'firebase/firestore'
 
 const Login = ({ navigation }) => {
 
@@ -16,6 +17,7 @@ const Login = ({ navigation }) => {
     const usersRef = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log(user,'ututu')
         usersRef
           .doc(user.uid)
           .get()
@@ -35,31 +37,30 @@ const Login = ({ navigation }) => {
   }, []);
 
   const onLoginPress = () => {
-    navigation.navigate('Home')
-    // firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((response) => {
-    //     const uid = response.user.uid
-    //     const usersRef = firebase.firestore().collection('users')
-    //     usersRef
-    //       .doc(uid)
-    //       .get()
-    //       .then(firestoreDocument => {
-    //         if (!firestoreDocument.exists) {
-    //           alert("User does not exist anymore.")
-    //           return;
-    //         }
-    //         const user = firestoreDocument.data()
-    //         navigation.navigate('Post')
-    //       })
-    //       .catch(error => {
-    //         alert(error, 'eerrr')
-    //       });
-    //   })
-    //   .catch(error => {
-    //     alert(error, 'eerrr111')
-    //   })
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        const uid = response.user.uid
+        const usersRef = firebase.firestore().collection('users')
+        usersRef
+          .doc(uid)
+          .get()
+          .then(firestoreDocument => {
+            if (!firestoreDocument.exists) {
+              alert("User does not exist anymore.")
+              return;
+            }
+            const user = firestoreDocument.data()
+            navigation.navigate('Home')
+          })
+          .catch(error => {
+            alert(error, 'eerrr')
+          });
+      })
+      .catch(error => {
+        alert(error, 'eerrr111')
+      })
   }
 
   const goToRegister = () => {
