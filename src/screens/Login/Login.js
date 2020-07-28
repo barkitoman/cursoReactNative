@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import Logo from '../../components/Logo';
 import FormLogin from './FormLogin';
@@ -6,9 +6,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { colors } from '../../styles/theme';
 import firebase from 'firebase'
 import 'firebase/firestore'
+import { ContextUser } from '../../context/ContentUser';
 
 const Login = ({ navigation }) => {
-
+  const {updateUser} = useContext(ContextUser)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true)
@@ -24,7 +25,8 @@ const Login = ({ navigation }) => {
           .then((document) => {
             const userData = document.data()
             setLoading(false)
-            console.log("persiste")
+            
+            updateUser(userData)
             navigation.navigate('Home')
           })
           .catch((error) => {
@@ -52,6 +54,7 @@ const Login = ({ navigation }) => {
               return;
             }
             const user = firestoreDocument.data()
+            updateUser(user)
             navigation.navigate('Home')
           })
           .catch(error => {

@@ -1,4 +1,5 @@
 
+import { Dimensions } from 'react-native';
 
 export const colors = {
     white: '#FFFFFF',
@@ -10,6 +11,12 @@ export const colors = {
     yellow: '#F0D506',
     
 };
+
+export const dimensions = {
+    fullHeight: Dimensions.get('window').height,
+    fullWidth: Dimensions.get('window').width,
+    fullScreenHeight: Dimensions.get('screen').height,
+  };
 
 export const theme = {
     Button: {

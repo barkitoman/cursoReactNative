@@ -7,6 +7,7 @@ import { theme } from './src/styles/theme';
 
 import firebase from 'firebase'
 import { firebaseConfig } from './src/firebase/config';
+import { ContextUser, UserProvider } from './src/context/ContentUser';
 
 firebase.initializeApp(firebaseConfig)
 
@@ -14,7 +15,13 @@ export default function App() {
   return (
   <View style={{flex:1}}>
     <ThemeProvider theme={theme}>
-      <AppContainer></AppContainer>
+      <UserProvider>
+        <ContextUser.Consumer>{
+          ({user})=>(
+            <AppContainer></AppContainer>
+          )}
+        </ContextUser.Consumer>
+      </UserProvider>
     </ThemeProvider>
   </View>
   )

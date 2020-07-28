@@ -38,11 +38,12 @@ const InputSearch = ({onChange}) => {
 }
 const styles = StyleSheet.create({
     container:{
+        margin:10,
         flexDirection:'row',
         alignContent:'center',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor: colors.red
+        backgroundColor: colors.white
     }
 })
 

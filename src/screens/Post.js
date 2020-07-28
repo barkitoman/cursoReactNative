@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import { ScrollView, FlatList, TouchableWithoutFeedback, TouchableOpacity } from 'react-native-gesture-handler'
-import { Header, SearchBar, Button } from 'react-native-elements'
-import CardItem from '../components/CardItem'
+import React, { useState, useEffect } from 'react'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Header, colors } from 'react-native-elements'
 import InputSearch from '../components/InputSearch'
 import { DrawerActions } from '@react-navigation/native'
-import firebase from 'firebase'
-
+import ListMovies from '../components/ListMovies'
+import API from '../utils/Api'
 
 const flatListItems = [
     { id: '1', value: 'A' },
@@ -42,19 +40,6 @@ const Post = ({navigation}) => {
 
     const[text, setText] = useState('');
     const [brandsData, setbrandsData] = useState(flatListItems);
-
-    const FlatListItemSeparator = () => {
-        return (
-            <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }}/>
-        );
-    };
-
-    
-    const goToDescription = ({item})=> {
-        console.log("Paso por aca CV");
-        console.log("item "+ item);
-        navigation.navigate('Description',{item:item})
-      }
     
     const  onChangeText = (text) => {    
         if(text != ''){
@@ -71,15 +56,25 @@ const Post = ({navigation}) => {
     }
 
     const openMenu = () => {
-        console.log('wwww')
+        console.log('open')
         navigation.dispatch(DrawerActions.toggleDrawer())
-        firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-            navigation.navigate('Login')
-          }).catch(function(error) {
-            // An error happened.
-          });
+       
     }
+
+    const fetchMovies = async() => {
+        try {
+            console.log('callFetch')
+            let data = await API.movies.getPopularMovies();
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    
+    useEffect(()=>{
+        fetchMovies()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -93,35 +88,44 @@ const Post = ({navigation}) => {
                 rightComponent={{ icon: 'refresh', color: '#fff' }}
                 centerComponent={{ text: 'Post', style: { color: '#fff' } }}
             />
-            <InputSearch onChange={onChangeText} ></InputSearch>
-            <FlatList
-                roundAvatar
-                data={brandsData}
-                ItemSeparatorComponent={FlatListItemSeparator}
-                badge={{ value: 3, textStyle: { color: 'orange' }, containerStyle: { marginTop: -20 } }}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={()=>goToDescription({item})}>
-                  <View >
-                        <Text style={styles.item}>
-                            {item.value}
-                        </Text>
-                    </View>
-                    </TouchableOpacity>
-                )}
+            <View style={{flexDirection:'row',
+             justifyContent:'space-around',
+             alignItems:'center',
+              marginHorizontal:10, 
+              marginTop:10, 
+              borderWidth:1, 
+              borderColor: "#000", 
+              borderRadius: 5, 
+              height:40,
 
-            />
-            <Button
-                title='Delete all'
-                titleStyle={styles.titleStyleButton}
-                buttonStyle={styles.buttonStyle}
-            />
+              
+              }}>
+                <View >
+                    <TouchableOpacity onPress={()=>ShowListing()}>
+                        <Text >
+                            Cinema listing
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{borderRightWidth:1, borderRightColor:"#000", height:40, width:1}}></View>
+                <View >
+                    <TouchableOpacity onPress={()=>ShowFavorites()}>
+                        <Text style={{}}>
+                            Favorites
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+            <InputSearch onChange={onChangeText} ></InputSearch>
+            
+            <ListMovies brandsData={brandsData} navigation ={navigation}></ListMovies>
+            
 
         </View>
     )
 
 }
-
-
 
 const styles = StyleSheet.create({
     container: {
